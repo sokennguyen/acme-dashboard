@@ -13,13 +13,14 @@ export default function Search({ placeholder }: { placeholder: string }) {
 
   const handleSearch = useDebouncedCallback((userInp: string) => {
     const params = new URLSearchParams(searchParam);
+    params.set('page', '1');
     if (userInp) {
       params.set('query', userInp);
     } else {
       params.delete('query');
     }
-    replace(`${pathname}?${params.toString()}`)
-  }, 300)
+    replace(`${pathname}?${params.toString()}`);
+  }, 300);
   //debounceCallback is waiting 300ms after user stop typing
 
   return (
@@ -31,7 +32,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
         className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
         placeholder={placeholder}
         onChange={(e) => {
-          handleSearch(e.target.value)
+          handleSearch(e.target.value);
         }}
         defaultValue={searchParam.get('query')?.toString()}
       />
